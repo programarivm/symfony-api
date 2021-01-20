@@ -30,7 +30,7 @@ class Product
     /**
      * @ORM\Column(type="boolean")
      */
-    private $featured;
+    private $isFeatured;
 
     /**
      * @ORM\Column(type="float")
@@ -66,14 +66,14 @@ class Product
         return $this;
     }
 
-    public function getFeatured(): ?bool
+    public function getIsFeatured(): ?bool
     {
-        return $this->featured;
+        return $this->isFeatured;
     }
 
-    public function setFeatured(bool $featured): self
+    public function setIsFeatured(bool $isFeatured): self
     {
-        $this->featured = $featured;
+        $this->isFeatured = $isFeatured;
 
         return $this;
     }
