@@ -9,3 +9,19 @@ services:
       volumes:
           - ./:/usr/share/nginx/symfony-api
           - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+  mysql:
+      image: mysql:8.0
+      container_name: symfony_api_mysql
+      restart: always
+      working_dir: /usr/local/symfony_api
+      volumes:
+          - ./:/usr/local/symfony_api
+          - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      ports:
+          - "3306:3306"
+      environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD=1
+          - MYSQL_DATABASE=${DB_DATABASE}
+          - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+          - MYSQL_USER=${DB_USERNAME}
+          - MYSQL_PASSWORD=${DB_PASSWORD}
