@@ -13,6 +13,7 @@ class CategoryFixtures extends Fixture
         $category = new Category();
         $category->setName('eCommerce');
         $category->setSlug('ecommerce');
+        $category->setDescription('This is the description.');
         $manager->persist($category);
 
         $manager->flush();
