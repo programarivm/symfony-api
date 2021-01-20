@@ -39,7 +39,7 @@ Find out your PHP container IP and run the built-in Symfony web server on port `
 
 Example:
 
-    curl http://172.18.02:8000/api/product/al
+    curl http://172.18.02:8000/api/product/all
 
 Endpoint | HTTP Verb | Description
 -------- | --------- | -----------
