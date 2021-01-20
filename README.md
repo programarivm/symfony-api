@@ -31,8 +31,16 @@ Alternatively:
 
     $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:fixtures:load
 
-### API Endpoint
+### API Endpoints
 
 Find out your PHP container IP and run the built-in Symfony web server on port `8000`:
 
     $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console server:run 172.18.0.2:8000
+
+Example:
+
+    curl http://172.18.02:8000/api/product/al
+
+Endpoint | HTTP Verb | Description
+-------- | --------- | -----------
+`api/product/all` | `GET` | All products
