@@ -8,6 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class CategoryFixtures extends Fixture
 {
+    const N = 3;
+    
     private $sample = [
         [
             'eCommerce',

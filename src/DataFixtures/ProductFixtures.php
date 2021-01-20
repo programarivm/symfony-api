@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class ProductFixtures extends Fixture
+class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     const N = 50;
 
@@ -30,10 +31,18 @@ class ProductFixtures extends Fixture
                 ->setName($this->faker->sentence($nbWords = 5, $variableNbWords = true))
                 ->setPrice($this->faker->randomNumber(2))
                 ->setCurrency($this->currencies[array_rand($this->currencies)])
-                ->setIsFeatured($this->faker->boolean($chanceOfGettingTrue = 33));
+                ->setIsFeatured($this->faker->boolean($chanceOfGettingTrue = 33))
+                ->setCategory($this->getReference('category-'.rand(0, CategoryFixtures::N-1)));
             $manager->persist($product);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            CategoryFixtures::class,
+        ];
     }
 }
