@@ -4,6 +4,8 @@ services:
   php_fpm:
       build: .
       container_name: symfony_api_php_fpm
+      ports:
+        - 8000:8000
       restart: always
       working_dir: /usr/share/nginx/symfony-api
       volumes:
