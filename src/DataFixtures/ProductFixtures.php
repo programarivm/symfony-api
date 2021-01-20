@@ -27,8 +27,9 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         for ($i = 0; $i < self::N; $i++) {
+            $name = rtrim($this->faker->sentence($nbWords = 4, $variableNbWords = true), '.');
             $product = (new Product())
-                ->setName($this->faker->sentence($nbWords = 5, $variableNbWords = true))
+                ->setName($name)
                 ->setPrice($this->faker->randomNumber(2))
                 ->setCurrency($this->currencies[array_rand($this->currencies)])
                 ->setIsFeatured($this->faker->boolean($chanceOfGettingTrue = 33))
