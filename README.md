@@ -11,3 +11,5 @@ Create an `.env` file:
 Build the Docker containers:
 
     $ docker-compose up --build
+
+Find the IP of the MySQL Docker container and update the `DATABASE_URL` variable accordingly in your `.env` file.
