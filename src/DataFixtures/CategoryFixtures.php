@@ -5,40 +5,36 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class CategoryFixtures extends Fixture
 {
     const N = 3;
-    
-    private $sample = [
-        [
-            'eCommerce',
-            'ecommerce',
-            'Lorem ipsum dolor sit amet',
-        ],
-        [
-            'Entertainment',
-            'entertainment',
-            'Consectetur adipiscing elit',
-        ],
-        [
-            'Wiki',
-            'wiki',
-            'sed do eiusmod tempor incididunt',
-        ],
-    ];
+
+    private $faker;
+
+    public function __construct()
+    {
+        $this->faker = Factory::create();
+    }
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < count($this->sample); $i++) {
+        for ($i = 0; $i < self::N; $i++) {
+            $name = rtrim($this->faker->sentence($nbWords = 3, $variableNbWords = true), '.');
             $category = (new Category())
-                            ->setName($this->sample[$i][0])
-                            ->setSlug($this->sample[$i][1])
-                            ->setDescription($this->sample[$i][2]);
+                            ->setName($name)
+                            ->setSlug($this->slug($name))
+                            ->setDescription($this->faker->sentence);
             $manager->persist($category);
             $this->addReference("category-$i", $category);
         }
 
         $manager->flush();
+    }
+
+    private function slug($string)
+    {
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }
 }
