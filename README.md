@@ -33,18 +33,33 @@ Alternatively:
 
 ### API Endpoints
 
-Find out your PHP container IP and run the built-in Symfony web server on port `8000`:
-
-    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console server:run 172.18.0.2:8000
-
-Example:
-
-    curl http://172.18.02:8000/api/product/all
-
 Endpoint | HTTP Verb | Description
 -------- | --------- | -----------
 `api/category/all` | `GET` | Gets all categories
+`api/category/create` | `POST` | Creates a category
 `api/category/delete/{id}` | `DELETE` | Deletes a category by id
 `api/product/all` | `GET` | Gets all products
 `api/product/featured` | `GET` | Gets the featured products
 `api/product/featured/{iso}` | `GET` | Gets the featured products converted to the given currency in ISO format
+
+Find out your PHP container IP and run the built-in Symfony web server on port `8000`:
+
+    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console server:run 172.18.0.2:8000
+
+### Examples
+
+Get all categories:
+
+    $ curl http://172.18.02:8000/api/category/all
+
+Create a category:
+
+    $ curl -X POST -i http://172.18.0.2:8000/api/category/create --data '{
+        "name": "Foo",
+        "slug": "foo",
+        "description": "This is foo"
+    }'
+
+Delete a category:
+
+    $ curl -X DELETE http://172.18.0.2:8000/api/category/delete/3
