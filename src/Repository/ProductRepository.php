@@ -19,7 +19,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function symbols($iso)
+    public function symbols(string $iso): string
     {
         switch ($iso) {
             case 'EUR':
@@ -29,7 +29,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function featured($iso, $rate)
+    public function featured(string $iso, float $rate): array
     {
         $result = array_merge(
             $this->convert($iso, $rate),
@@ -43,7 +43,7 @@ class ProductRepository extends ServiceEntityRepository
         return $result;
     }
 
-    private function convert($iso, $rate)
+    private function convert(string $iso, float $rate): array
     {
         return $this->createQueryBuilder('p')
             ->join('p.category', 'c')
@@ -57,7 +57,7 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
-    private function dontConvert($iso)
+    private function dontConvert(string $iso): array
     {
         return $this->createQueryBuilder('p')
             ->join('p.category', 'c')
