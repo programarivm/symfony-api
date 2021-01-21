@@ -42,6 +42,7 @@ Endpoint | HTTP Verb | Description
 `api/product/create` | `POST` | Creates a product
 `api/product/featured` | `GET` | Gets the featured products
 `api/product/featured/{iso}` | `GET` | Gets the featured products converted to the given currency in ISO format
+`api/product/update/{id}` | `PUT` | Updates a product
 
 Find out your PHP container IP and run the built-in Symfony web server on port `8000`:
 
@@ -72,5 +73,15 @@ Create a product:
         "price": 25.75,
         "currency": "EUR",
         "is_featured": false,
-        "category": 1
+        "category_id": 1
+    }'
+
+Update a product:
+
+    $ curl -X PUT -i http://172.18.0.2:8000/api/product/update/51 --data '{
+        "name": "Foo",
+        "price": 25.76,
+        "currency": "EUR",
+        "is_featured": true,
+        "category_id": 2
     }'
