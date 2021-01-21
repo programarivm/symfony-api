@@ -27,4 +27,23 @@ class CategoryController extends AbstractFOSRestController
             $serializer->serialize($category, 'json')
         );
     }
+
+    /**
+     * @Rest\Delete("/delete/{id}")
+     */
+    public function delete(int $id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo->findOneById($id);
+
+        if (!$category) {
+            throw new HttpException(404, "Category does not exist.");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+
+        return new Response(Response::HTTP_NO_CONTENT);
+    }
 }

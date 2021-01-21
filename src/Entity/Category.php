@@ -35,7 +35,7 @@ class Category
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category", cascade={"persist", "remove"})
      */
     private $products;
 
