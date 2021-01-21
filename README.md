@@ -20,12 +20,7 @@ DATABASE_URL="mysql://root:@172.18.0.3:3306/database?serverVersion=8.0"
 
 ### Update the Database Schema
 
-    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:migrations:diff
-    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:migrations:migrate
-
-Alternatively:
-
-    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:schema:update --force
+    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:schema:update
 
 ### Load the Fixtures
 
