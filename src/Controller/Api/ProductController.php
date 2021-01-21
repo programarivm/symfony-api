@@ -92,40 +92,4 @@ class ProductController extends AbstractFOSRestController
             $serializer->serialize($repo->findBy(['isFeatured' => true]), 'json')
         );
     }
-
-    /**
-     * @Rest\Put("/update/{id}")
-     *
-     * @return Response
-     */
-    public function update(int $id, Request $request): Response
-    {
-        $data = json_decode($request->getContent());
-
-        $product = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findOneBy(['id' => $id]);
-
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBy(['id' => $data->category_id]);
-
-        if (!$product || !$category) {
-            throw new HttpException(400, "Product is not valid.");
-        }
-
-        // TODO: data validation
-
-        $product->setName($data->name)
-            ->setPrice($data->price)
-            ->setCurrency($data->currency)
-            ->setIsFeatured($data->is_featured)
-            ->setCategory($category);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($product);
-        $em->flush();
-
-        return new Response(Response::HTTP_NO_CONTENT);
-    }
 }

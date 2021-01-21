@@ -43,7 +43,6 @@ Endpoint | HTTP Verb | Description
 `api/product/create` | `POST` | Creates a product
 `api/product/featured` | `GET` | Gets the featured products
 `api/product/featured/{iso}` | `GET` | Gets the featured products converted to the given currency in ISO format
-`api/product/update/{id}` | `PUT` | Updates a product
 
 Find out your PHP container IP and run the built-in Symfony web server on port `8000`:
 
