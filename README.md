@@ -2,7 +2,7 @@
 
 REST API with Symfony 4.4.
 
-### Before You Begin
+### 1. Before You Begin
 
 Create an `.env` file:
 
@@ -18,13 +18,15 @@ Finally, don't forget to update the `DATABASE_URL` variable in your `.env` file 
 DATABASE_URL="mysql://root:@172.18.0.3:3306/database?serverVersion=8.0"
 ```
 
-### Update the Database Schema
+### 2. Update the Database Schema
 
-    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:schema:update
+    $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:schema:update --force
 
-### Load the Fixtures
+### 3. Load the Fixtures
 
     $ docker exec -itu 1000:1000 symfony_api_php_fpm php bin/console doctrine:fixtures:load
+
+***
 
 ### API Endpoints
 
