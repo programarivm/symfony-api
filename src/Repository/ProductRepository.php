@@ -19,6 +19,16 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function symbols($iso)
+    {
+        switch ($iso) {
+            case 'EUR':
+                return 'USD';
+            case 'USD';
+                return 'EUR';
+        }
+    }
+
     public function featured($iso, $rate)
     {
         $result = array_merge(

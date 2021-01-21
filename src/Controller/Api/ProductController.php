@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * @Route("/product")
@@ -70,7 +71,11 @@ class ProductController extends AbstractFOSRestController
      *
      * @return Response
      */
-    public function featured(SerializerInterface $serializer, string $iso = null): Response
+    public function featured(
+        HttpClientInterface $httpClient,
+        SerializerInterface $serializer,
+        string $iso = null
+    ): Response
     {
         $repo = $this->getDoctrine()->getRepository(Product::class);
 
@@ -79,9 +84,10 @@ class ProductController extends AbstractFOSRestController
                 throw new HttpException(400, "Currency is not valid.");
             }
 
-            // TODO
-            // Query the foreign exchange rates API
-            $rate = 0.82;
+            $symbols = $repo->symbols($iso);
+            $response = $httpClient->request('GET', "https://api.exchangeratesapi.io/latest?base=$iso&symbols=$symbols");
+            $latest = json_decode($response->getContent());
+            $rate = $latest->rates->{$symbols};
 
             return new Response(
                 $serializer->serialize($repo->featured($iso, $rate), 'json')
