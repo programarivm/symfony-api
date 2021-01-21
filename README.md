@@ -39,6 +39,7 @@ Endpoint | HTTP Verb | Description
 `api/category/create` | `POST` | Creates a category
 `api/category/delete/{id}` | `DELETE` | Deletes a category by id
 `api/product/all` | `GET` | Gets all products
+`api/product/create` | `POST` | Creates a product
 `api/product/featured` | `GET` | Gets the featured products
 `api/product/featured/{iso}` | `GET` | Gets the featured products converted to the given currency in ISO format
 
@@ -63,3 +64,13 @@ Create a category:
 Delete a category:
 
     $ curl -X DELETE http://172.18.0.2:8000/api/category/delete/3
+
+Create a product:
+
+    $ curl -X POST -i http://172.18.0.2:8000/api/product/create --data '{
+        "name": "Foo",
+        "price": 25.75,
+        "currency": "EUR",
+        "is_featured": false,
+        "category": 1
+    }'
