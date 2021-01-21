@@ -22,9 +22,7 @@ class ProductNormalizer implements NormalizerInterface, CacheableSupportsMethodI
             'name' => $object->getName(),
             'price' => $object->getPrice(),
             'currency' => $object->getCurrency(),
-            'category' => [
-                'name' => $object->getCategory()->getName(),
-            ],
+            'category_name' => $object->getCategory()->getName(),
         ];
     }
 

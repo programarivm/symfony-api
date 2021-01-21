@@ -44,3 +44,5 @@ Example:
 Endpoint | HTTP Verb | Description
 -------- | --------- | -----------
 `api/product/all` | `GET` | All products
+`api/product/featured` | `GET` | Featured products
+`api/product/featured/{iso}` | `GET` | Featured products converted to the given currency in ISO format

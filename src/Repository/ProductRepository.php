@@ -19,32 +19,45 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function featured($iso, $rate)
+    {
+        $result = array_merge(
+            $this->convert($iso, $rate),
+            $this->dontConvert($iso)
+        );
+
+        usort($result, function ($a, $b) {
+            return $a['id'] - $b['id'];
+        });
+
+        return $result;
+    }
+
+    private function convert($iso, $rate)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('p.category', 'c')
+            ->select("p.id, p.name, p.price * $rate as price, p.currency, c.name as category_name")
+            ->where('p.isFeatured = :featured')
+            ->andWhere('p.currency != :iso')
+            ->setParameter('featured', true)
+            ->setParameter('iso', $iso)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Product
+    private function dontConvert($iso)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->join('p.category', 'c')
+            ->select("p.id, p.name, p.price, p.currency, c.name as category_name")
+            ->where('p.isFeatured = :featured')
+            ->andWhere('p.currency = :iso')
+            ->setParameter('featured', true)
+            ->setParameter('iso', $iso)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
 }
