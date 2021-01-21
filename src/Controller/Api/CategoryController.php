@@ -74,4 +74,33 @@ class CategoryController extends AbstractFOSRestController
 
         return new Response(Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * @Rest\Put("/update/{id}")
+     *
+     * @return Response
+     */
+    public function update(int $id, Request $request): Response
+    {
+        $data = json_decode($request->getContent());
+
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo->findOneBy(['id' => $id]);
+
+        if (!$category) {
+            throw new HttpException(400, "Category is not valid.");
+        }
+
+        // TODO: data validation
+
+        $category->setName($data->name)
+            ->setSlug($data->slug)
+            ->setDescription($data->description);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($category);
+        $em->flush();
+
+        return new Response(Response::HTTP_NO_CONTENT);
+    }
 }

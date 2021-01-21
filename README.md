@@ -38,6 +38,7 @@ Endpoint | HTTP Verb | Description
 `api/category/all` | `GET` | Gets all categories
 `api/category/create` | `POST` | Creates a category
 `api/category/delete/{id}` | `DELETE` | Deletes a category by id
+`api/category/update/{id}` | `PUT` | Updates a category
 `api/product/all` | `GET` | Gets all products
 `api/product/create` | `POST` | Creates a product
 `api/product/featured` | `GET` | Gets the featured products
@@ -66,22 +67,10 @@ Delete a category:
 
     $ curl -X DELETE http://172.18.0.2:8000/api/category/delete/3
 
-Create a product:
+Update a category:
 
-    $ curl -X POST -i http://172.18.0.2:8000/api/product/create --data '{
-        "name": "Foo",
-        "price": 25.75,
-        "currency": "EUR",
-        "is_featured": false,
-        "category_id": 1
-    }'
-
-Update a product:
-
-    $ curl -X PUT -i http://172.18.0.2:8000/api/product/update/51 --data '{
-        "name": "Foo",
-        "price": 25.76,
-        "currency": "EUR",
-        "is_featured": true,
-        "category_id": 2
+    $ curl -X PUT -i http://172.18.0.2:8000/api/category/update/4 --data '{
+        "name": "Foobar",
+        "slug": "foobar",
+        "description": "This is foo updated"
     }'
