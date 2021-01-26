@@ -17,3 +17,19 @@ cateogry_update:
     path: /api/category/update/{id}
     controller: App\Controller\Api\CategoryController::update
     methods: PUT
+
+product_all:
+    path: /api/product/all
+    controller: App\Controller\Api\ProductController::all
+    methods: GET
+
+product_create:
+    path: /api/product/create
+    controller: App\Controller\Api\ProductController::create
+    methods: POST
+
+product_featured:
+    path: /api/product/featured/{iso}
+    defaults: { iso: null }
+    controller: App\Controller\Api\ProductController::featured
+    methods: GET
