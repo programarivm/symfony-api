@@ -1,3 +1,19 @@
-api:
-    prefix: /api
-    resource: '../src/Controller/Api'
+cateogry_all:
+    path: /api/category/all
+    controller: App\Controller\Api\CategoryController::all
+    methods: GET
+
+cateogry_create:
+    path: /api/category/create
+    controller: App\Controller\Api\CategoryController::create
+    methods: POST
+
+cateogry_delete:
+    path: /api/category/delete/{id}
+    controller: App\Controller\Api\CategoryController::delete
+    methods: DELETE
+
+cateogry_update:
+    path: /api/category/update/{id}
+    controller: App\Controller\Api\CategoryController::update
+    methods: PUT
